@@ -1,7 +1,8 @@
-package com.jeflette.culinar
+package com.jeflette.culinar.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jeflette.culinar.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
