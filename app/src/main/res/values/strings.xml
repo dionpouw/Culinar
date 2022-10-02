@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Culinar</string>
+    <string name="restaurant_image">Restaurant Image</string>
+    <string name="foodtype">FoodType</string>
 </resources>
