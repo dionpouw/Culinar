@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeRestaurantFragment">
+    <fragment
+        android:id="@+id/homeRestaurantFragment"
+        android:name="com.jeflette.culinar.ui.home.HomeRestaurantFragment"
+        android:label="fragment_home_restaurant"
+        tools:layout="@layout/fragment_home_restaurant" >
+        <action
+            android:id="@+id/action_homeRestaurantFragment_to_detailRestaurantFragment"
+            app:destination="@id/detailRestaurantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailRestaurantFragment"
+        android:name="com.jeflette.culinar.ui.detail.DetailRestaurantFragment"
+        android:label="fragment_detail_restaurant"
+        tools:layout="@layout/fragment_detail_restaurant" />
+
+</navigation>
