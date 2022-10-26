@@ -1,6 +1,5 @@
 package com.jeflette.culinar.screen.homescreen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,24 +17,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jeflette.culinar.data.local.entity.Restaurant
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import com.jeflette.culinar.data.remote.response.Restaurant
 import com.jeflette.culinar.ui.theme.CulinarTheme
 import com.jeflette.culinar.ui.theme.interFamily
-import com.jeflette.culinar.util.fakeData
 import com.jeflette.culinar.util.fakeMood
+import com.jeflette.culinar.util.mapFromRestaurantsToList
 
 @Composable
-fun HomeScreenApp() {
-    HomeScreenContent(modifier = Modifier.padding(16.dp))
+fun HomeScreenApp(
+    viewModel: HomeScreenViewModel = viewModel()
+) {
+    HomeScreenContent(modifier = Modifier.padding(16.dp), viewModel = viewModel)
 }
 
 @Composable
-fun HomeScreenContent(modifier: Modifier) {
+fun HomeScreenContent(modifier: Modifier, viewModel: HomeScreenViewModel) {
     Column(
         modifier = modifier,
     ) {
@@ -56,7 +58,8 @@ fun HomeScreenContent(modifier: Modifier) {
                     Modifier
                         .clip(RoundedCornerShape(16.dp))
                         .background(MaterialTheme.colorScheme.secondaryContainer)
-                        .padding(8.dp), color = MaterialTheme.colorScheme.onSecondaryContainer
+                        .padding(8.dp),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }
@@ -66,8 +69,8 @@ fun HomeScreenContent(modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(fakeData()) { item ->
-                RestaurantCard(item)
+            items(mapFromRestaurantsToList(viewModel.restaurantList.value)) { item ->
+                RestaurantCard(restaurant = item)
             }
         }
     }
@@ -81,23 +84,27 @@ fun RestaurantCard(
         Column(
             modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer)
         ) {
-            Image(
-                painter = painterResource(id = restaurant.imageUrl),
+
+            AsyncImage(
+                model = restaurant.imageUrl,
                 contentDescription = "restaurant",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(125.dp)
             )
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = restaurant.name,
-                maxLines = 1,
-                fontFamily = interFamily,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+
+            restaurant.name?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier.padding(8.dp),
+                    maxLines = 1,
+                    fontFamily = interFamily,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
             Row(
                 Modifier
                     .fillMaxWidth()
@@ -121,12 +128,14 @@ fun RestaurantCard(
                             contentDescription = "Rating",
                             tint = Color.Yellow
                         )
-                        Text(
-                            text = restaurant.averagePrice,
-                            fontFamily = interFamily,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
+                        restaurant.rating?.let {
+                            Text(
+                                text = it,
+                                fontFamily = interFamily,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
                     }
                 }
             }
