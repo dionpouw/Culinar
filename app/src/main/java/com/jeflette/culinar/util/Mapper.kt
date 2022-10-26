@@ -4,7 +4,7 @@ import com.jeflette.culinar.data.remote.response.Restaurant
 import com.jeflette.culinar.data.remote.response.Restaurants
 
 fun mapFromRestaurantsToList(restaurants: Restaurants): List<Restaurant> {
-    val restaurantMap = listOf(
+    return listOf(
         Restaurant(
             name = restaurants.restaurant1?.name,
             rating = restaurants.restaurant1?.rating,
@@ -52,5 +52,4 @@ fun mapFromRestaurantsToList(restaurants: Restaurants): List<Restaurant> {
             averagePrice = restaurants.restaurant9?.averagePrice,
         )
     )
-    return restaurantMap
 }
