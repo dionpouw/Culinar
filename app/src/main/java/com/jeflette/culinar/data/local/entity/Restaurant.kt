@@ -4,22 +4,24 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "restaurant")
+@Entity(tableName = "restaurants")
 data class Restaurant(
 
-    //  @field:SerializedName("address") val address: String? = null,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
 
-    @field:SerializedName("image_url") val imageUrl: Int? = null,
+    @field:SerializedName("address") val address: String? = null,
 
-    //  @field:SerializedName("latitude") val latitude: String? = null,
+    @field:SerializedName("image_url") val imageUrl: String? = null,
+
+    @field:SerializedName("latitude") val latitude: String? = null,
 
     @field:SerializedName("average_price") val averagePrice: String? = null,
 
-    @PrimaryKey @field:SerializedName("name") val name: String,
+    @field:SerializedName("name") val name: String? = null,
 
-    //  @field:SerializedName("rating") val rating: String? = null,
+    @field:SerializedName("rating") val rating: String? = null,
 
-    //@field:SerializedName("cuisine") val cuisine: String? = null,
+    @field:SerializedName("cuisine") val cuisine: String? = null,
 
-    //@field:SerializedName("longitude") val longitude: String? = null
+    @field:SerializedName("longitude") val longitude: String? = null
 )
