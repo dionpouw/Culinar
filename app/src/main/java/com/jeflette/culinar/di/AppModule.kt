@@ -3,7 +3,10 @@ package com.jeflette.culinar.di
 import android.app.Application
 import androidx.room.Room
 import com.jeflette.culinar.BuildConfig
+import com.jeflette.culinar.data.RestaurantRepository
+import com.jeflette.culinar.data.local.LocalDataSource
 import com.jeflette.culinar.data.local.db.RestaurantDatabase
+import com.jeflette.culinar.data.remote.RemoteDataSource
 import com.jeflette.culinar.network.ApiService
 import com.jeflette.culinar.util.Constant
 import dagger.Module
@@ -45,4 +48,16 @@ object AppModule {
     fun provideAppDatabase(app: Application): RestaurantDatabase =
         Room.databaseBuilder(app, RestaurantDatabase::class.java, "restaurants.db").build()
 
+    @Singleton
+    @Provides
+    fun provideLocalDataSource(db: RestaurantDatabase) = db.restaurantDao()
+
+    @Singleton
+    @Provides
+    fun provideRepository(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource) =
+        RestaurantRepository(remoteDataSource, localDataSource)
+
+    @Singleton
+    @Provides
+    fun provideRemoteDataSource(apiService: ApiService) = RemoteDataSource(apiService)
 }
