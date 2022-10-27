@@ -1,15 +1,19 @@
 package com.jeflette.culinar.data
 
+import com.jeflette.culinar.data.local.LocalDataSource
+import com.jeflette.culinar.data.local.entity.Restaurant
+import com.jeflette.culinar.data.remote.RemoteDataSource
 import com.jeflette.culinar.data.remote.response.Mood
-import com.jeflette.culinar.network.ApiService
 import javax.inject.Inject
 
 class RestaurantRepository @Inject constructor(
-    private val api: ApiService
+    private val remoteDataSource: RemoteDataSource, private val localDataSource: LocalDataSource
 ) {
-//
-//    suspend fun getRestaurantList() = api.getRestaurantList()
 
-    suspend fun getRestaurantListFromRemote(data: Mood) = api.getRestaurantList(data)
+    suspend fun getRestaurantListFromRemote(data: Mood) = remoteDataSource.getRestaurantList(data)
 
+    suspend fun getRestaurantListFromLocal() = localDataSource.getRestaurantList()
+
+    suspend fun saveRestaurantsToDb(restaurantList: List<Restaurant>) =
+        localDataSource.saveRestaurantsToDb(restaurantList)
 }
