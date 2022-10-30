@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val restaurantDao: RestaurantDao
 ) {
-    suspend fun getRestaurantList() = restaurantDao.getRestaurantList()
+    fun getRestaurantList(mood: String) = restaurantDao.getRestaurantList(mood)
 
     suspend fun saveRestaurantsToDb(restaurantList: List<Restaurant>) =
         restaurantDao.saveRestaurantsToDb(restaurantList)
