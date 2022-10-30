@@ -13,6 +13,8 @@ data class Restaurant(
 
     @field:SerializedName("image_url") val imageUrl: String? = null,
 
+    val mood: String? = null,
+
     @field:SerializedName("latitude") val latitude: String? = null,
 
     @field:SerializedName("average_price") val averagePrice: String? = null,
