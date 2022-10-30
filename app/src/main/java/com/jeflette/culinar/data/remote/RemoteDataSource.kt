@@ -7,8 +7,5 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(
     private val apiService: ApiService
 ) {
-
     suspend fun getRestaurantList(data: Mood) = apiService.getRestaurantList(data)
-
-
 }
