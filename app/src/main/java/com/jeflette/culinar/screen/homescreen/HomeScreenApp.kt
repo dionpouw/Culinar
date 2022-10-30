@@ -1,5 +1,6 @@
 package com.jeflette.culinar.screen.homescreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,6 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,11 +26,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.jeflette.culinar.data.remote.response.Restaurant
+import com.jeflette.culinar.data.local.entity.Restaurant
 import com.jeflette.culinar.ui.theme.CulinarTheme
 import com.jeflette.culinar.ui.theme.interFamily
+import com.jeflette.culinar.util.MoodState
 import com.jeflette.culinar.util.fakeMood
-import com.jeflette.culinar.util.mapFromRestaurantsToList
 
 @Composable
 fun HomeScreenApp(
@@ -38,6 +41,8 @@ fun HomeScreenApp(
 
 @Composable
 fun HomeScreenContent(modifier: Modifier, viewModel: HomeScreenViewModel) {
+    val restaurants by viewModel.restaurantList.collectAsState()
+    viewModel.getRestaurantList(MoodState.Happy.name)
     Column(
         modifier = modifier,
     ) {
@@ -69,16 +74,18 @@ fun HomeScreenContent(modifier: Modifier, viewModel: HomeScreenViewModel) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(mapFromRestaurantsToList(viewModel.restaurantList.value)) { item ->
+            items(restaurants) { item ->
+                Log.d("Data", item.toString())
                 RestaurantCard(restaurant = item)
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestaurantCard(
-    restaurant: Restaurant
+    restaurant: Restaurant, //onClickToDetailL: () -> Unit
 ) {
     Card {
         Column(
