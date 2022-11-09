@@ -18,9 +18,11 @@ class RestaurantRepository @Inject constructor(
         saveFetchResult = {
             localDataSource.saveRestaurantsToDb(
                 mapFromRestaurantsToList(
-                    it.data?.restaurants ?: Restaurants()
+                    it.data?.restaurants ?: Restaurants(), mood
                 )
             )
         },
     )
+
+    fun getRestaurantByAddress(address: String) = localDataSource.getRestaurantByAddress(address)
 }
