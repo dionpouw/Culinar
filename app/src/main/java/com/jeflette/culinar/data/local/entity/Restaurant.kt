@@ -7,9 +7,8 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "restaurants")
 data class Restaurant(
 
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
-
-    @field:SerializedName("address") val address: String? = null,
+    @PrimaryKey
+    @field:SerializedName("address") val address: String,
 
     @field:SerializedName("image_url") val imageUrl: String? = null,
 
