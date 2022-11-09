@@ -17,13 +17,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        Properties properties = new Properties()
-
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
-
-        buildConfigField("String", "MAPBOX_DOWNLOADS_TOKEN", MAPBOX_DOWNLOADS_TOKEN)
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -100,11 +93,8 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     // Mapbox
-    implementation 'com.mapbox.maps:android:10.9.0'
     implementation 'com.google.maps.android:maps-compose:2.7.2'
-    // Make sure to also include the latest version of the Maps SDK for Android
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
