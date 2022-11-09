@@ -1,4 +1,4 @@
-package com.jeflette.culinar.screen
+package com.jeflette.culinar.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeflette.culinar.screen.homescreen.HomeScreenApp
 import com.jeflette.culinar.ui.theme.CulinarTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreenApp()
+                    CulinarApp()
                 }
             }
         }
@@ -40,7 +39,7 @@ fun DefaultPreview() {
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
-            HomeScreenApp()
+            CulinarApp()
         }
     }
 }
