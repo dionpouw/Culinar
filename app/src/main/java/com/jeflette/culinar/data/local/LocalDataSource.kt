@@ -11,4 +11,6 @@ class LocalDataSource @Inject constructor(
 
     suspend fun saveRestaurantsToDb(restaurantList: List<Restaurant>) =
         restaurantDao.saveRestaurantsToDb(restaurantList)
+
+    fun getRestaurantByAddress(address: String) = restaurantDao.getRestaurantByAddress(address)
 }
